@@ -11,7 +11,6 @@ namespace AppPruebaAspCore.API.Data
         }
         public DataContext(DbContextOptions<DataContext> options) : base(options) {}
         public DbSet<Value> Values { get; set; }
-        public DbSet<Persona> Personas { get; set; }
-        public DbSet<Domicilio> Domicilios { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

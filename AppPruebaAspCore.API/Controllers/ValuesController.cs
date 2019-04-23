@@ -12,19 +12,17 @@ namespace AppPruebaAspCore.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        private readonly UnitOfWork _unitOfWork;
         private readonly DataContext _context;
 
         public ValuesController(DataContext context)
         {
             this._context = context;
-            this._unitOfWork = new UnitOfWork(this._context);
         }
         // GET api/values
         [HttpGet]
         public IActionResult GetValues()
         {
-            var values = _unitOfWork.ValuesRepository.Get(x => x.Id > 2, q => q.OrderBy(s => s.Id)).ToList();
+            var values = this._context.Values.ToListAsync();
             return Ok(values);
         }
 
@@ -32,7 +30,7 @@ namespace AppPruebaAspCore.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetValue(int id)
         {
-            var value = _unitOfWork.ValuesRepository.GetByID(id);
+            var value = this._context.Values.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(value);
         }
 
