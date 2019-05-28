@@ -20,19 +20,20 @@ namespace AppPruebaAspCore.API.Controllers
         {
             this._context = context;
         }
-        // GET api/values
+
+        [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetValues()
+        public async Task<IActionResult> GetValues()
         {
-            var values = this._context.Values.ToListAsync();
+            var values = await this._context.Values.ToListAsync();
             return Ok(values);
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
-        public IActionResult GetValue(int id)
+        public async Task<IActionResult> GetValue(int id)
         {
-            var value = this._context.Values.FirstOrDefaultAsync(x => x.Id == id);
+            var value = await this._context.Values.FirstOrDefaultAsync(x => x.Id == id);
             return Ok(value);
         }
 
